@@ -23,3 +23,11 @@
   opacity: .2;
   cursor: default;
 }
+
+@media screen and (max-width: 425px) {
+  .form__btn {
+    min-height: 46px;
+    font-size: 14px;
+  }
+}
+
