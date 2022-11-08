@@ -70,6 +70,19 @@
   <footer class="footer">
     <p class="footer__text">&copy; 2022 Mesto Russia</p>
   </footer>
+  <div class="popup popup_active">
+    <div class="popup__container">
+      <button class="popup__close" type="button">Закрыть</button>
+      <form action="/" class="form" id="form-edit-profile">
+        <h2 class="form__title">Редактировать профиль</h2>
+        <fieldset class="form__input-container">
+          <input class="form__input" type="text" id="name" value="Жак-Ив Кусто">
+          <input class="form__input" type="text" id="profession" value="Исследователь океана">
+        </fieldset>
+        <button class="form__btn" type="submit">Сохранить</button>
+      </form>
+    </div>
+  </div>
   <script src="pages/index.js"></script>
 </body>
 </html>
