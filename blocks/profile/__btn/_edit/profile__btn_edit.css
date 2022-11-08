@@ -1,7 +1,16 @@
 .profile__btn_edit {
+  grid-area: btn;
+  align-self: center;
   width: 24px;
   height: 24px;
-  margin-left: auto;
   background-image: url('../../../../images/icons/profile__btn_edit.png');
   border: 1px solid #fff;
 }
+
+@media screen and (max-width: 425px) {
+  .profile__btn_edit {
+    width: 18px;
+    height: 18px;
+  }
+}
+

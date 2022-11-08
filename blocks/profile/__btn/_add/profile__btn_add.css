@@ -6,3 +6,8 @@
   border: 2px solid #fff;
   border-radius: 2px;
 }
+@media screen and (max-width: 500px) {
+  .profile__btn_add {
+    width: 100%;
+  }
+}
