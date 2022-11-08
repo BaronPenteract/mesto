@@ -23,6 +23,15 @@
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__text/footer__text.css');
 
+/* Cards */
+@import url('../blocks/cards/cards.css');
+@import url('../blocks/cards/__list/cards__list.css');
+@import url('../blocks/cards/__item/cards__item.css');
+@import url('../blocks/cards/__image/cards__image.css');
+@import url('../blocks/cards/__content/cards__content.css');
+@import url('../blocks/cards/__title/cards__title.css');
+@import url('../blocks/cards/__like/cards__like.css');
+@import url('../blocks/cards/__like/_active/cards__like_active.css');
 
 * {
   outline: 1px solid red;
