@@ -19,6 +19,8 @@
 @import url('../blocks/profile/__btn/_add/profile__btn_add.css');
 @import url('../blocks/profile/__btn/_edit/profile__btn_edit.css');
 
+/* Footer */
+@import url('../blocks/footer/footer.css');
 
 
 * {
