@@ -1,4 +1,3 @@
-# Проект: Место
 # Проект: [Mesto Russia](https://baronpenteract.github.io/mesto/index.html)
 
 
