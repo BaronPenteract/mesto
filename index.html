@@ -18,56 +18,68 @@
         <img class="profile__avatar" src="images/avatar.jpg" alt="Аватарка путешественника">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
-          <button class="profile__btn profile__btn_edit" type="button">Редактировать</button>
+          <button class="profile__btn-edit" type="button" title="Редактировать"></button>
           <p class="profile__subtitle">Исследователь океана</p>
         </div>
       </div>
-      <button class="profile__btn profile__btn_add" type="button">Добавить</button>
+      <button class="profile__btn-add" type="button" title="Добавить новое место"></button>
     </section>
     <section class="cards" aria-label="Места, где побывал">
       <ul class="cards__list">
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
-          <div class="cards__content">
-            <h2 class="cards__title">Карачаевск</h2>
-            <div class="cards__like cards__like_active">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
-          <div class="cards__content">
-            <h2 class="cards__title">Гора Эльбрус</h2>
-            <div class="cards__like">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
-          <div class="cards__content">
-            <h2 class="cards__title">Домбай</h2>
-            <div class="cards__like">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
-          <div class="cards__content">
-            <h2 class="cards__title">Гора Эльбрус</h2>
-            <div class="cards__like">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
-          <div class="cards__content">
-            <h2 class="cards__title">Домбай</h2>
-            <div class="cards__like">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
-        <li class="cards__item">
-          <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
-          <div class="cards__content">
-            <h2 class="cards__title">Карачаево-Черкесия</h2>
-            <div class="cards__like">Поставить лайк</div>
-          </div>
-        </li><!-- /.cards__item -->
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
+            <div class="cards__content">
+              <h2 class="cards__title">Карачаевск</h2>
+              <button class="cards__like cards__like_active" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
+            <div class="cards__content">
+              <h2 class="cards__title">Гора Эльбрус</h2>
+              <button class="cards__like" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
+            <div class="cards__content">
+              <h2 class="cards__title">Домбай</h2>
+              <button class="cards__like" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
+            <div class="cards__content">
+              <h2 class="cards__title">Гора Эльбрус</h2>
+              <button class="cards__like" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
+            <div class="cards__content">
+              <h2 class="cards__title">Домбай</h2>
+              <button class="cards__like" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
+        <li>
+          <article class="cards__item">
+            <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
+            <div class="cards__content">
+              <h2 class="cards__title">Карачаево-Черкесия</h2>
+              <button class="cards__like" type="button" title="Поставить лайк"></button>
+            </div>
+          </article><!-- /.cards__item -->
+        </li>
       </ul><!-- /.cards__list -->
     </section>
   </main>
@@ -77,16 +89,16 @@
   <div class="popup">
     <div class="popup__container">
       <button class="popup__close" type="button">Закрыть</button>
-      <form action="/" class="form" id="edit-form">
+      <form name="editForm" action="/" class="form form_type_edit">
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__input-container">
-          <input class="form__input" type="text" id="edit-form__name">
-          <input class="form__input" type="text" id="edit-form__job">
+          <input class="form__input form__input_edit_name" type="text" name="editFormName">
+          <input class="form__input form__input_edit_job" type="text" name="editFormJob">
         </fieldset>
-        <button class="form__btn" type="submit" id="edit-form__submit">Сохранить</button>
+        <button class="form__btn form__btn_type_submit" type="submit" id="edit-form__submit">Сохранить</button>
       </form>
     </div>
   </div>
-  <script src="pages/index.js"></script>
+  <script src="scripts/index.js"></script>
 </body>
 </html>
