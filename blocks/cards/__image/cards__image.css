@@ -1,7 +1,7 @@
 .cards__image {
   display: block;
   width: 100%;
-  height: auto;
+  height: 282px;
   object-fit: cover;
   object-position: center;
 }

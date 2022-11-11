@@ -41,6 +41,8 @@
 @import url('../blocks/popup/_active/popup_active.css');
 @import url('../blocks/popup/__container/popup__container.css');
 @import url('../blocks/popup/__close/popup__close.css');
+@import url('../blocks/popup/__image/popup__image.css');
+@import url('../blocks/popup/__title/popup__title.css');
 
 /* Form */
 @import url('../blocks/form/form.css');

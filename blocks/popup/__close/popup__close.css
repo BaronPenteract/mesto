@@ -5,7 +5,6 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
-  font-size: 0;
   background: url('../../../images/icons/close-icon.svg') center no-repeat;
   background-size: contain;
   position: absolute;

@@ -1,4 +1,5 @@
 let editBtn = document.querySelector('.profile__btn-edit');
+let addBtn = document.querySelector('.profile__btn-add');
 let closePopupBtn = document.querySelector('.popup__close');
 let popup = document.querySelector('.popup');
 
@@ -40,6 +41,9 @@ editForm.addEventListener('submit', editFormHandler);
 
 /* Click по кнопке редактирования профиля */
 editBtn.addEventListener('click', togglePopup);
+
+/* Click по кнопке добавления карточки */
+addBtn.addEventListener('click', togglePopup);
 
 /* Click по кнопке закрытия popup */
 closePopupBtn.addEventListener('click', togglePopup);
