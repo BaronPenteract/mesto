@@ -22,12 +22,12 @@ function editFormHandler(event) {
 
 /* Open/Close popup window */
 function togglePopup() {
-  setEditFormNameJob(); /* Если не было submit (не "если", а "не было"), то возвращаем старые значения c профиля */
+  setEditFormValues(); /* Забираем значения из профиля в форму редактирования, если popup неактивен */
   popup.classList.toggle('popup_active');
 }
 
 /* Set edit form values */
-function setEditFormNameJob() {
+function setEditFormValues() {
   if(!popup.classList.contains('popup_active')) {
     editFormName.value = profileName.textContent;
     editFormJob.value = profileJob.textContent;
