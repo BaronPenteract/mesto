@@ -29,6 +29,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
               <div class="cards__content">
                 <h2 class="cards__title">Карачаевск</h2>
@@ -40,6 +41,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
               <div class="cards__content">
                 <h2 class="cards__title">Гора Эльбрус</h2>
@@ -51,6 +53,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
               <div class="cards__content">
                 <h2 class="cards__title">Домбай</h2>
@@ -62,6 +65,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
               <div class="cards__content">
                 <h2 class="cards__title">Гора Эльбрус</h2>
@@ -73,6 +77,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
               <div class="cards__content">
                 <h2 class="cards__title">Домбай</h2>
@@ -84,6 +89,7 @@
         <li>
           <article>
             <div class="cards__item">
+              <button class="cards__delete" type="button" title="Удалить"></button>
               <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
               <div class="cards__content">
                 <h2 class="cards__title">Карачаево-Черкесия</h2>
@@ -100,17 +106,37 @@
   </footer>
   <div class="popup">
     <div class="popup__container">
-      <button class="popup__close" type="button">Закрыть</button>
-      <form name="editForm" action="/" class="form form_type_edit">
+      <button class="popup__close" type="button" title="Закрыть"></button>
+      <form class="form form_type_edit" name="editForm" action="/">
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__input-container">
           <input class="form__input form__input_edit_name" type="text" name="editFormName">
           <input class="form__input form__input_edit_job" type="text" name="editFormJob">
         </fieldset>
-        <button class="form__btn form__btn_type_submit" type="submit" id="edit-form__submit">Сохранить</button>
+        <button class="form__btn form__btn_type_submit" type="submit">Сохранить</button>
       </form>
     </div>
-  </div>
+  </div><!-- /.popup edit -->
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close" type="button" title="Закрыть"></button>
+      <form class="form form_type_add" name="addForm" action="/">
+        <h2 class="form__title">Новое место</h2>
+        <fieldset class="form__input-container">
+          <input class="form__input form__input_add_name" type="text" name="addFormName" placeholder="Название">
+          <input class="form__input form__input_add_url" type="text" name="addFormUrl" placeholder="Ссылка на картинку">
+        </fieldset>
+        <button class="form__btn form__btn_type_submit" type="submit">Создать</button>
+      </form>
+    </div>
+  </div><!-- /.popup add -->
+  <div class="popup">
+    <div class="popup__container">
+      <button class="popup__close" type="button" title="Закрыть"></button>
+      <img class="popup__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="тестовая картинка">
+      <h2 class="popup__title">Карачаево-Черкессия</h2>
+    </div>
+  </div><!-- /.popup image -->
   <script src="scripts/index.js"></script>
 </body>
 </html>
