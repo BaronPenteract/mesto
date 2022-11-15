@@ -26,73 +26,14 @@
     </section>
     <section class="cards" aria-label="Места, где побывал">
       <ul class="cards__list">
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
-            <div class="cards__content">
-              <h2 class="cards__title">Карачаевск</h2>
-              <button class="cards__like cards__like_active" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
-            <div class="cards__content">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
-            <div class="cards__content">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1404681-unsplash-1.jpg" alt="Равнина, горы вдали">
-            <div class="cards__content">
-              <h2 class="cards__title">Гора Эльбрус</h2>
-              <button class="cards__like" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1556355-unsplash.jpg" alt="Лес на склоне горы">
-            <div class="cards__content">
-              <h2 class="cards__title">Домбай</h2>
-              <button class="cards__like" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
-        <li>
-          <article class="cards__item">
-            <button class="cards__delete" type="button" title="Удалить"></button>
-            <img class="cards__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="Собор у подножья горы">
-            <div class="cards__content">
-              <h2 class="cards__title">Карачаево-Черкесия</h2>
-              <button class="cards__like" type="button" title="Поставить лайк"></button>
-            </div>
-          </article><!-- /.cards__item -->
-        </li>
+        <!-- здесь будут карточки на странице) -->
       </ul><!-- /.cards__list -->
     </section>
   </main>
   <footer class="footer">
     <p class="footer__text">&copy; 2022 Mesto Russia</p>
   </footer>
-  <div class="popup">
+  <div class="popup popup_type_edit-form">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
       <form class="form form_type_edit" name="editForm" action="/">
@@ -105,7 +46,7 @@
       </form>
     </div>
   </div><!-- /.popup edit -->
-  <div class="popup">
+  <div class="popup popup_type_add-form">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
       <form class="form form_type_add" name="addForm" action="/">
@@ -118,7 +59,7 @@
       </form>
     </div>
   </div><!-- /.popup add -->
-  <div class="popup">
+  <div class="popup popup_type_image">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
       <img class="popup__image" src="images/cards/kirill-pershin-1088404-unsplash.jpg" alt="тестовая картинка">
