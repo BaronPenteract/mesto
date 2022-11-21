@@ -26,7 +26,20 @@
     </section>
     <section class="cards" aria-label="Места, где побывал">
       <ul class="cards__list">
-        <!-- здесь будут карточки на странице) -->
+        <template id="card-template">
+          <li>
+            <article>
+              <div class="cards__item">
+                <button class="cards__delete" type="button" title="Удалить"></button>
+                <img class="cards__image" src="/" alt="Шаблонное описание">
+                <div class="cards__content">
+                  <h2 class="cards__title">Название шаблона</h2>
+                  <button class="cards__like" type="button" title="Поставить лайк"></button>
+                </div>
+              </div><!-- /.cards__item -->
+            </article>
+          </li>
+        </template>
       </ul><!-- /.cards__list -->
     </section>
   </main>
