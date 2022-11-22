@@ -53,7 +53,7 @@ function createCard(name, url) {
   })
 
   cardImageEl.addEventListener('click', function() {
-    setValuesInPopupElImage(name, url);
+    setValuesInPopupElImageAndOpen(name, url);
   })
 
   btnLikeCard.addEventListener('click', function() {
@@ -86,7 +86,7 @@ function closePopup(popupEl) {
 }
 
 /* Set edit form values */
-function setValuesInFormElEditProfile() {
+function setValuesInFormElEditProfileAndOpen() {
   if(!popupElEditProfile.classList.contains('popup_active')) {
     inputNameProfileEl.value = profileNameEl.textContent;
     inputJobProfileEl.value = profileJobEl.textContent;
@@ -95,7 +95,7 @@ function setValuesInFormElEditProfile() {
 }
 
 /* Set image popup values */
-function setValuesInPopupElImage(name, url) {
+function setValuesInPopupElImageAndOpen(name, url) {
   imageOfPopupElImage.src = url;
   imageOfPopupElImage.alt = name;
   titleOfPopupElImage.textContent = name;
@@ -105,7 +105,7 @@ function setValuesInPopupElImage(name, url) {
 
 /* Click по кнопке редактирования профиля */
 btnEditProfile.addEventListener('click', function() {
-  setValuesInFormElEditProfile();
+  setValuesInFormElEditProfileAndOpen();
 });
 
 /* Слушатель submit формы редактирования профиля */

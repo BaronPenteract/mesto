@@ -1,7 +1,7 @@
 const initialCards = [
   {
     name: 'р.п. Верх-Чебула',
-    link: 'http://chebula.ru/attachments/Image/IMG_5997.JPG?template=generic'
+    link: 'https://avatars.dzeninfra.ru/get-zen_doc/2763421/pub_630cf6f6aaa53c70f210f4e4_630cf88dbf33e43cb0dcc330/scale_2400'
   },
   {
     name: 'г. Новороссийск',
