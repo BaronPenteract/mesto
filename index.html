@@ -49,11 +49,17 @@
   <div class="popup popup_type_edit-form">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
-      <form class="form form_type_edit" name="editForm" action="/">
+      <form class="popup__form form form_type_edit" name="editForm" action="/" novalidate>
         <h2 class="form__title">Редактировать профиль</h2>
         <fieldset class="form__input-container">
-          <input class="form__input form__input_edit_name" type="text" name="editFormName">
-          <input class="form__input form__input_edit_job" type="text" name="editFormJob">
+          <label class="form__label">
+            <input id="edit-name-input" class="form__input form__input_edit_name" type="text" name="editFormName" required>
+            <span class="edit-name-input-error form__error"></span>
+          </label>
+          <label class="form__label">
+            <input id="edit-job-input" class="form__input form__input_edit_job" type="text" name="editFormJob" required>
+            <span class="edit-job-input-error form__error"></span>
+          </label>
         </fieldset>
         <button class="form__btn form__btn_type_submit" type="submit">Сохранить</button>
       </form>
@@ -62,11 +68,17 @@
   <div class="popup popup_type_add-form">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
-      <form class="form form_type_add" name="addForm" action="/">
+      <form class="popup__form form form_type_add" name="addForm" action="/" novalidate>
         <h2 class="form__title">Новое место</h2>
         <fieldset class="form__input-container">
-          <input class="form__input form__input_add_name" type="text" name="addFormName" placeholder="Название">
-          <input class="form__input form__input_add_url" type="text" name="addFormUrl" placeholder="Ссылка на картинку">
+          <label class="form__label">
+            <input id="add-name-input" class="form__input form__input_add_name" type="text" name="addFormName" placeholder="Название" required>
+            <span class="add-name-input-error form__error"></span>
+          </label>
+          <label class="form__label">
+            <input id="add-url-input" class="form__input form__input_add_url" type="text" name="addFormUrl" placeholder="Ссылка на картинку" required>
+            <span class="add-url-input-error form__error"></span>
+          </label>
         </fieldset>
         <button class="form__btn form__btn_type_submit" type="submit">Создать</button>
       </form>
@@ -81,5 +93,6 @@
   </div><!-- /.popup image -->
   <script src="scripts/initialcards.js"></script>
   <script src="scripts/index.js"></script>
+  <script src="scripts/validate.js"></script>
 </body>
 </html>

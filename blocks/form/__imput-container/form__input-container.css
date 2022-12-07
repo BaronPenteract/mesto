@@ -1,7 +1,10 @@
 .form__input-container {
-  margin: 0 0 47px;
+  margin: 0 0 42px;
   padding: 0;
   border: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media screen and (max-width: 425px) {

@@ -1,7 +1,7 @@
 .form__input {
   width: 100%;
   padding: 0 0 9px;
-  margin-bottom: 28px;
+  margin-bottom: 5px;
   box-sizing: border-box;
   border-top: none;
   border-right: none;
@@ -12,10 +12,6 @@
   line-height: 1.21;
   color: #000;
   transition: border .2s linear;
-}
-
-.form__input:last-of-type {
-  margin-bottom: 0;
 }
 
 .form__input:focus {
