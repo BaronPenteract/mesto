@@ -1,5 +1,6 @@
 const btnEditProfile = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
+const ESC_KEY = 'Escape';
 
 /* Попапы */
 const popupEls = document.querySelectorAll('.popup');
@@ -79,6 +80,13 @@ function getPopup(popupClass) {
 /* Open/Close popup window */
 function openPopup(popupEl) {
   popupEl.classList.add('popup_active');
+  const formElement = popupEl.querySelector('.popup__form');
+  if(settings && formElement) {
+    const inputList = Array.from(formElement.querySelectorAll(`${settings.inputSelector}`));
+    const buttonSubmitElement = formElement.querySelector(`${settings.submitButtonSelector}`);
+
+    toggleButtonState(inputList, buttonSubmitElement, settings.inactiveButtonClass);
+  }
 }
 
 function closePopup(popupEl) {
@@ -139,9 +147,22 @@ formElAddCard.addEventListener('submit', function(e) {
 /* Закрытие Любого popup */
 popupEls.forEach( function(popupEl) {
   const popupCloseBtnEl = popupEl.querySelector('.popup__close');
+
   popupCloseBtnEl.addEventListener('click', function() {
     closePopup(popupEl);
   })
+
+  popupEl.addEventListener('click', function(e) {
+    if (e.target === e.currentTarget) {
+      closePopup(popupEl);
+    }
+  })
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === ESC_KEY) {
+      closePopup(popupEl);
+    }
+  });
 });
 /* ------------- */
 
