@@ -1,6 +1,5 @@
 const btnEditProfile = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
-const ESC_KEY = 'Escape';
 
 /* Попапы */
 const popupEls = document.querySelectorAll('.popup');
@@ -31,12 +30,12 @@ const cardTemplateEl = document.querySelector('#card-template').content; /* Эт
 
 function initializeCards(initialCards) {
   initialCards.forEach(function( initialCard ) {
-    const cardEl = createCard( initialCard.name, initialCard.link );
-    addCard( cardEl );
+    const cardEl = createCard( initialCard.name, initialCard.link, cardTemplateEl );
+    addCard( cardEl, cardsListEl );
   })
 }
 
-function createCard(name, url) {
+function createCard(name, url, cardTemplateEl) {
   const cardEl = cardTemplateEl.cloneNode(true);
   const cardTitleEl = cardEl.querySelector('.cards__title');
   const cardImageEl = cardEl.querySelector('.cards__image');
@@ -54,7 +53,7 @@ function createCard(name, url) {
   })
 
   cardImageEl.addEventListener('click', function() {
-    setValuesInPopupElImageAndOpen(name, url);
+    setValuesInPopupElImageAndOpen(name, url, popupElImage);
   })
 
   btnLikeCard.addEventListener('click', function() {
@@ -63,7 +62,7 @@ function createCard(name, url) {
   return cardEl;
 }
 
-function addCard( cardEl ) {
+function addCard( cardEl, cardsListEl ) {
   cardsListEl.prepend( cardEl );
 }
 
@@ -73,24 +72,38 @@ function delCard(cardLiEl) {
 
 /* Получение конкретного попапа по классу модификатору*/
 function getPopup(popupClass) {
-  return Array.from(popupEls).find(popup => popup.classList.contains(popupClass)); /* До чего техника дошла! Преобразуем псевдомассив в массив, ищем попап с нужным классом*/
+  return Array.from(popupEls).find(popup => popup.classList.contains(popupClass));
 }
 
 
 /* Open/Close popup window */
+function closePopupByEscape(e) {
+  const popupEl = document.querySelector('.popup_active');
+  if (e.key === ESC_KEY) {
+    closePopup(popupEl);
+  }
+}
+
 function openPopup(popupEl) {
-  popupEl.classList.add('popup_active');
   const formElement = popupEl.querySelector('.popup__form');
+
+  popupEl.classList.add('popup_active');
   if(settings && formElement) {
     const inputList = Array.from(formElement.querySelectorAll(`${settings.inputSelector}`));
     const buttonSubmitElement = formElement.querySelector(`${settings.submitButtonSelector}`);
 
     toggleButtonState(inputList, buttonSubmitElement, settings.inactiveButtonClass);
+
+    inputList.forEach(inputElement => {
+      hideErrorMessage(formElement, inputElement);
+    })
   }
+  document.addEventListener('keydown', closePopupByEscape);
 }
 
 function closePopup(popupEl) {
   popupEl.classList.remove('popup_active');
+  document.removeEventListener('keydown', closePopupByEscape);
 }
 
 /* Set edit form values */
@@ -103,7 +116,7 @@ function setValuesInFormElEditProfileAndOpen() {
 }
 
 /* Set image popup values */
-function setValuesInPopupElImageAndOpen(name, url) {
+function setValuesInPopupElImageAndOpen(name, url, popupElImage) {
   imageOfPopupElImage.src = url;
   imageOfPopupElImage.alt = name;
   titleOfPopupElImage.textContent = name;
@@ -138,9 +151,9 @@ formElAddCard.addEventListener('submit', function(e) {
 
   const name = inputNameCardEl.value;
   const url = inputUrlCardEl.value;
-  const cardEl = createCard( name, url );
+  const cardEl = createCard(name, url, cardTemplateEl);
 
-  addCard( cardEl );
+  addCard(cardEl, cardsListEl);
   closePopup(popupElAddCard);
 });
 
@@ -157,12 +170,6 @@ popupEls.forEach( function(popupEl) {
       closePopup(popupEl);
     }
   })
-
-  document.addEventListener('keydown', function(e) {
-    if (e.key === ESC_KEY) {
-      closePopup(popupEl);
-    }
-  });
 });
 /* ------------- */
 
