@@ -63,4 +63,14 @@ const setEventListeners = (formElement) => {
   })
 }
 
+const resetFormState = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll(`${settings.inputSelector}`));
+  const buttonSubmitElement = formElement.querySelector(`${settings.submitButtonSelector}`);
+
+  toggleButtonState(inputList, buttonSubmitElement, settings.inactiveButtonClass);
+  inputList.forEach(inputElement => {
+    hideErrorMessage(formElement, inputElement);
+  })
+}
+
 enableValidation(settings);
