@@ -1,3 +1,6 @@
+import { ESC_KEY, initialCards, templateSelector, settings } from "./constants.js";
+import Card from "./Card.js";
+
 const btnEditProfile = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
 
@@ -26,49 +29,6 @@ const inputNameCard = formAddCard.querySelector('.form__input_add_name')
 const inputUrlCard = formAddCard.querySelector('.form__input_add_url');
 
 const cardList = document.querySelector('.cards__list'); /* <ul class="cards__list"></ul> */
-const cardTemplate = document.querySelector('#card-template').content; /* Это <li>...</li> */
-
-function initializeCards(initialCards) {
-  initialCards.forEach(function( initialCard ) {
-    const card = createCard( initialCard.name, initialCard.link, cardTemplate );
-    addCard( card, cardList );
-  })
-}
-
-function createCard(name, url, cardTemplate) {
-  const card = cardTemplate.cloneNode(true);
-  const cardTitle = card.querySelector('.cards__title');
-  const cardImage = card.querySelector('.cards__image');
-  const btnDelCard = card.querySelector('.cards__delete');
-  const btnLikeCard = card.querySelector('.cards__like');
-
-  cardImage.src = url;
-  cardImage.alt = name;
-  cardTitle.textContent = name;
-
-  btnDelCard.addEventListener('click', function(e) {
-    const cardClosestLiTag = e.target.closest('li');
-
-    delCard(cardClosestLiTag);
-  })
-
-  cardImage.addEventListener('click', function() {
-    setValuesInPopupElImageAndOpen(name, url, popupImage);
-  })
-
-  btnLikeCard.addEventListener('click', function() {
-    btnLikeCard.classList.toggle('cards__like_active');
-  })
-  return card;
-}
-
-function addCard( card, cardList ) {
-  cardList.prepend( card );
-}
-
-function delCard(cardClosestLiTag) {
-  cardClosestLiTag.remove();
-}
 
 /* Получение конкретного попапа по классу модификатору*/
 function getPopup(popupClass) {
@@ -108,13 +68,6 @@ function setValuesInFormEditProfileAndOpen() {
   openPopup(popupEditProfile);
 }
 
-/* Set image popup values */
-function setValuesInPopupElImageAndOpen(name, url, popupImage) {
-  imageOfPopupImage.src = url;
-  imageOfPopupImage.alt = name;
-  titleOfPopupImage.textContent = name;
-  openPopup(popupImage);
-}
 /* ----------------------------------------------------------------------------------------------------- */
 
 /* Click по кнопке редактирования профиля */
@@ -135,7 +88,7 @@ formEditProfile.addEventListener('submit', function (e) {
 /* Click по кнопке добавления карточки */
 btnAddCard.addEventListener('click', function() {
   formAddCard.reset();
-  resetFormState(formAddCard);
+  //resetFormState(formAddCard);
   openPopup(popupAddCard);
 });
 
@@ -143,11 +96,14 @@ btnAddCard.addEventListener('click', function() {
 formAddCard.addEventListener('submit', function(e) {
   e.preventDefault();
 
-  const name = inputNameCard.value;
-  const url = inputUrlCard.value;
-  const card = createCard(name, url, cardTemplate);
+  const data = {
+    title: inputNameCard.value,
+    imageUrl: inputUrlCard.value,
+  };
 
-  addCard(card, cardList);
+  const card = new Card(data, templateSelector, {closePopupByEscape});
+  cardList.prepend(card.generate());
+
   closePopup(popupAddCard);
 });
 
@@ -167,4 +123,9 @@ popupList.forEach( function(popupEl) {
 });
 /* ------------- */
 
-initializeCards(initialCards);
+
+
+initialCards.forEach( data => {
+  const card = new Card(data, templateSelector, {closePopupByEscape});
+  cardList.prepend(card.generate());
+})
