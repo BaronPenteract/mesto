@@ -108,16 +108,16 @@ formAddCard.addEventListener('submit', function(e) {
 });
 
 /* Закрытие Любого popup */
-popupList.forEach( function(popupEl) {
-  const popupCloseBtnEl = popupEl.querySelector('.popup__close');
+popupList.forEach( function(popupElement) {
+  const popupCloseBtn = popupElement.querySelector('.popup__close');
 
-  popupCloseBtnEl.addEventListener('click', function() {
-    closePopup(popupEl);
+  popupCloseBtn.addEventListener('click', function() {
+    closePopup(popupElement);
   })
 
-  popupEl.addEventListener('click', function(e) {
+  popupElement.addEventListener('click', function(e) {
     if (e.target === e.currentTarget) {
-      closePopup(popupEl);
+      closePopup(popupElement);
     }
   })
 });

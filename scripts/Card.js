@@ -13,7 +13,7 @@ export default class Card {
   _setEventListeners() {
     this._like();
     this._delete();
-    this._openBigImage();
+    this._openBigPicture();
   }
 
   _like() {
@@ -32,17 +32,16 @@ export default class Card {
     })
   }
 
-  _openBigImage() {
+  _openBigPicture() {
     const popupImage = document.querySelector('.popup_type_image');
 
     this._cardElement.querySelector('.cards__image').addEventListener('click', () => {
-        popupImage.querySelector('.popup__image').src = this._imageUrl;
-        popupImage.querySelector('.popup__image').alt = this._title;
-        popupImage.querySelector('.popup__title').textContent = this._title;
+      popupImage.querySelector('.popup__image').src = this._imageUrl;
+      popupImage.querySelector('.popup__image').alt = this._title;
+      popupImage.querySelector('.popup__title').textContent = this._title;
 
-
-        document.addEventListener('keydown', this._closePopupByEscape);
-        popupImage.classList.add('popup_active');
+      document.addEventListener('keydown', this._closePopupByEscape);
+      popupImage.classList.add('popup_active');
     })
   }
 
