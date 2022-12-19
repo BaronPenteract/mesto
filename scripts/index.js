@@ -1,5 +1,6 @@
 import { ESC_KEY, initialCards, templateSelector, settings } from "./constants.js";
 import Card from "./Card.js";
+import FormValidator from "./FormValidator.js";
 
 const btnEditProfile = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
@@ -8,10 +9,6 @@ const btnAddCard = document.querySelector('.profile__btn-add');
 const popupList = document.querySelectorAll('.popup');
 const popupEditProfile = getPopup('popup_type_edit-form');
 const popupAddCard = getPopup('popup_type_add-form');
-const popupImage = getPopup('popup_type_image');
-
-const imageOfPopupImage = popupImage.querySelector('.popup__image');
-const titleOfPopupImage = popupImage.querySelector('.popup__title');
 
 
 /* Получение формы редактирования профиля и ее элементов */
@@ -30,6 +27,11 @@ const inputUrlCard = formAddCard.querySelector('.form__input_add_url');
 
 const cardList = document.querySelector('.cards__list'); /* <ul class="cards__list"></ul> */
 
+/* Validators */
+const formAddCardValidator = new FormValidator(settings, formAddCard);
+const formEditProfileValidator = new FormValidator(settings, formEditProfile);
+
+
 /* Получение конкретного попапа по классу модификатору*/
 function getPopup(popupClass) {
   return Array.from(popupList).find(popup => popup.classList.contains(popupClass));
@@ -38,7 +40,7 @@ function getPopup(popupClass) {
 
 /* Open/Close popup window */
 function closePopupByEscape(e) {
-  const popupEl = Array.from(popupList).find(popup => popup.classList.contains('popup_active'))
+  const popupEl = getPopup('popup_active');
 
   if (!popupEl) {
     return;
@@ -73,7 +75,7 @@ function setValuesInFormEditProfileAndOpen() {
 /* Click по кнопке редактирования профиля */
 btnEditProfile.addEventListener('click', function() {
   setValuesInFormEditProfileAndOpen();
-  resetFormState(formEditProfile);
+  formEditProfileValidator.resetFormState();
 });
 
 /* Слушатель submit формы редактирования профиля */
@@ -88,7 +90,7 @@ formEditProfile.addEventListener('submit', function (e) {
 /* Click по кнопке добавления карточки */
 btnAddCard.addEventListener('click', function() {
   formAddCard.reset();
-  //resetFormState(formAddCard);
+  formAddCardValidator.resetFormState();
   openPopup(popupAddCard);
 });
 
@@ -129,3 +131,7 @@ initialCards.forEach( data => {
   const card = new Card(data, templateSelector, {closePopupByEscape});
   cardList.prepend(card.generate());
 })
+
+formAddCardValidator.enableValidation();
+
+formEditProfileValidator.enableValidation();
