@@ -1,4 +1,4 @@
-import { ESC_KEY, initialCards, templateSelector, settings } from "./constants.js";
+import { ESC_KEY, initialCards, templateSelector, validationConfig } from "./constants.js";
 import Card from "./Card.js";
 import FormValidator from "./FormValidator.js";
 
@@ -9,6 +9,9 @@ const btnAddCard = document.querySelector('.profile__btn-add');
 const popupList = document.querySelectorAll('.popup');
 const popupEditProfile = getPopup('popup_type_edit-form');
 const popupAddCard = getPopup('popup_type_add-form');
+const popupImage = getPopup('popup_type_image');
+const titleOfPopupImage = popupImage.querySelector('.popup__title');
+const imageOfPopupImage = popupImage.querySelector('.popup__image');
 
 
 /* Получение формы редактирования профиля и ее элементов */
@@ -25,11 +28,11 @@ const formAddCard = popupAddCard.querySelector('.form_type_add');
 const inputNameCard = formAddCard.querySelector('.form__input_add_name')
 const inputUrlCard = formAddCard.querySelector('.form__input_add_url');
 
-const cardList = document.querySelector('.cards__list'); /* <ul class="cards__list"></ul> */
+const cardsContainer = document.querySelector('.cards__list'); /* <ul class="cards__list"></ul> */
 
 /* Validators */
-const formAddCardValidator = new FormValidator(settings, formAddCard);
-const formEditProfileValidator = new FormValidator(settings, formEditProfile);
+const formAddCardValidator = new FormValidator(validationConfig, formAddCard);
+const formEditProfileValidator = new FormValidator(validationConfig, formEditProfile);
 
 
 /* Получение конкретного попапа по классу модификатору*/
@@ -56,6 +59,15 @@ function openPopup(popupEl) {
   document.addEventListener('keydown', closePopupByEscape);
 }
 
+function openImagePopup({title, imageUrl}) {
+
+  titleOfPopupImage.textContent = title;
+  imageOfPopupImage.src = imageUrl;
+  imageOfPopupImage.alt = title;
+
+  openPopup(popupImage);
+}
+
 function closePopup(popupEl) {
   popupEl.classList.remove('popup_active');
   document.removeEventListener('keydown', closePopupByEscape);
@@ -63,39 +75,23 @@ function closePopup(popupEl) {
 
 /* Set edit form values */
 function setValuesInFormEditProfileAndOpen() {
-  if(!popupEditProfile.classList.contains('popup_active')) {
-    inputNameProfile.value = profileName.textContent;
-    inputJobProfile.value = profileJob.textContent;
-  }
+  inputNameProfile.value = profileName.textContent;
+  inputJobProfile.value = profileJob.textContent;
+
   openPopup(popupEditProfile);
 }
 
-/* ----------------------------------------------------------------------------------------------------- */
+/* Submit handlers */
 
-/* Click по кнопке редактирования профиля */
-btnEditProfile.addEventListener('click', function() {
-  setValuesInFormEditProfileAndOpen();
-  formEditProfileValidator.resetFormState();
-});
-
-/* Слушатель submit формы редактирования профиля */
-formEditProfile.addEventListener('submit', function (e) {
+function submitFormEditProfile(e) {
   e.preventDefault();
 
   profileName.textContent = inputNameProfile.value;
   profileJob.textContent = inputJobProfile.value;
   closePopup(popupEditProfile);
-});
+}
 
-/* Click по кнопке добавления карточки */
-btnAddCard.addEventListener('click', function() {
-  formAddCard.reset();
-  formAddCardValidator.resetFormState();
-  openPopup(popupAddCard);
-});
-
-/* Слушатель submit формы добавления карточки */
-formAddCard.addEventListener('submit', function(e) {
+function submitFormAddCard(e) {
   e.preventDefault();
 
   const data = {
@@ -103,11 +99,35 @@ formAddCard.addEventListener('submit', function(e) {
     imageUrl: inputUrlCard.value,
   };
 
-  const card = new Card(data, templateSelector, {closePopupByEscape});
-  cardList.prepend(card.generate());
+  cardsContainer.prepend(createCard(data));
 
   closePopup(popupAddCard);
+}
+
+function createCard(data) {
+  return new Card(data, templateSelector, openImagePopup).generate();
+}
+
+/* ----------------------------------------------------------------------------------------------------- */
+
+/* Click по кнопке редактирования профиля */
+btnEditProfile.addEventListener('click', function() {
+  setValuesInFormEditProfileAndOpen();
+  formEditProfileValidator.resetValidation();
 });
+
+/* Слушатель submit формы редактирования профиля */
+formEditProfile.addEventListener('submit', submitFormEditProfile);
+
+/* Click по кнопке добавления карточки */
+btnAddCard.addEventListener('click', function() {
+  formAddCard.reset();
+  formAddCardValidator.resetValidation();
+  openPopup(popupAddCard);
+});
+
+/* Слушатель submit формы добавления карточки */
+formAddCard.addEventListener('submit', submitFormAddCard);
 
 /* Закрытие Любого popup */
 popupList.forEach( function(popupElement) {
@@ -128,8 +148,7 @@ popupList.forEach( function(popupElement) {
 
 
 initialCards.forEach( data => {
-  const card = new Card(data, templateSelector, {closePopupByEscape});
-  cardList.prepend(card.generate());
+  cardsContainer.prepend(createCard(data));
 })
 
 formAddCardValidator.enableValidation();

@@ -29,7 +29,7 @@ const initialCards = [
   }
 ];
 
-const settings = {
+const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.form__input',
   submitButtonSelector: '.form__btn_type_submit',
@@ -38,4 +38,4 @@ const settings = {
   errorClass: 'form__error_active'
 };
 
-export { ESC_KEY, initialCards, templateSelector, settings };
+export { ESC_KEY, initialCards, templateSelector, validationConfig };
