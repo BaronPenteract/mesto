@@ -83,7 +83,7 @@ function setValuesInFormEditProfileAndOpen() {
 
 /* Submit handlers */
 
-function submitFormEditProfile(e) {
+function handleFormEditProfileSubmit(e) {
   e.preventDefault();
 
   profileName.textContent = inputNameProfile.value;
@@ -91,7 +91,7 @@ function submitFormEditProfile(e) {
   closePopup(popupEditProfile);
 }
 
-function submitFormAddCard(e) {
+function handleFormAddCardSubmit(e) {
   e.preventDefault();
 
   const data = {
@@ -117,7 +117,7 @@ btnEditProfile.addEventListener('click', function() {
 });
 
 /* Слушатель submit формы редактирования профиля */
-formEditProfile.addEventListener('submit', submitFormEditProfile);
+formEditProfile.addEventListener('submit', handleFormEditProfileSubmit);
 
 /* Click по кнопке добавления карточки */
 btnAddCard.addEventListener('click', function() {
@@ -127,7 +127,7 @@ btnAddCard.addEventListener('click', function() {
 });
 
 /* Слушатель submit формы добавления карточки */
-formAddCard.addEventListener('submit', submitFormAddCard);
+formAddCard.addEventListener('submit', handleFormAddCardSubmit);
 
 /* Закрытие Любого popup */
 popupList.forEach( function(popupElement) {
