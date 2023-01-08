@@ -1,9 +1,14 @@
-import { ESC_KEY, initialCards, templateSelector, validationConfig } from "./constants.js";
-import Card from "./Card.js";
-import FormValidator from "./FormValidator.js";
+import { ESC_KEY, initialCards, templateSelector, validationConfig } from "../utils/constants.js";
+import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
+import Section from "../components/Section.js";
+import Popup from "../components/Popup.js";
+
+
 
 const btnEditProfile = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
+
 
 /* Попапы */
 const popupList = document.querySelectorAll('.popup');
@@ -30,10 +35,11 @@ const inputUrlCard = formAddCard.querySelector('.form__input_add_url');
 
 const cardsContainer = document.querySelector('.cards__list'); /* <ul class="cards__list"></ul> */
 
+
+
 /* Validators */
 const formAddCardValidator = new FormValidator(validationConfig, formAddCard);
 const formEditProfileValidator = new FormValidator(validationConfig, formEditProfile);
-
 
 /* Получение конкретного попапа по классу модификатору*/
 function getPopup(popupClass) {
@@ -154,3 +160,20 @@ initialCards.forEach( data => {
 formAddCardValidator.enableValidation();
 
 formEditProfileValidator.enableValidation();
+
+
+const formEditPopup = new Popup('.popup_type_add-form');
+const formAddPopup = new Popup('.popup_type_add-form');
+
+btnEditProfile.addEventListener('click', function() {
+  formEditPopup.open();
+  formEditPopup.setEventListeners();
+});
+
+btnAddCard.addEventListener('click', function() {
+  formAddCard.reset();
+  formAddCardValidator.resetValidation();
+
+  formAddPopup.open();
+  formAddPopup.setEventListeners();
+});
