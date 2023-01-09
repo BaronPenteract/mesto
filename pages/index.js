@@ -12,8 +12,8 @@ const userJob = document.querySelector('.profile__subtitle');
 
 // User Info
 const userInfo = new UserInfo({
-  userName: userName.value,
-  userJob: userJob.value
+  userName: userName.textContent,
+  userJob: userJob.textContent
 });
 
 // Модалки
@@ -31,15 +31,13 @@ const btnEditUser = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
 
 
-/* Получение формы редактирования профиля и ее элементов */
+/* Получение формы редактирования профиля */
 const formEditUser = document.querySelector('.form_type_edit');
-const inputNameUser = formEditUser.querySelector('.form__input_edit_name')
-const inputJobUser = formEditUser.querySelector('.form__input_edit_job');
+const inputUserName = formEditUser.elements.userName;
+const inputUserJob = formEditUser.elements.userJob;
 
 /* Получение формы добавления карточки */
 const formAddCard = document.querySelector('.form_type_add');
-const inputNameCard = formAddCard.querySelector('.form__input_add_name')
-const inputUrlCard = formAddCard.querySelector('.form__input_add_url');
 
 const cardsContainer = new Section({
   items: initialCards,
@@ -54,37 +52,18 @@ const cardsContainer = new Section({
 const formAddCardValidator = new FormValidator(validationConfig, formAddCard);
 const formEditUserValidator = new FormValidator(validationConfig, formEditUser);
 
-
-/* Set edit form values */
-function setValuesInFormEditProfileAndOpen() {
-  inputNameUser.value = userName.textContent;
-  inputJobUser.value = userJob.textContent;
-
-  openPopup(popupEditProfile);
-}
-
 /* Submit handlers */
 
-function handleFormEditUserSubmit(e) {
-  e.preventDefault();
+function handleFormEditUserSubmit(userData) { //правильно ли реализовал... вопрос... это, получается, не сабмитХэндлер
 
-  userInfo.setUserInfo({//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! что-то с контекстом, я полагаю
-    userName: userName.value,
-    userJob: userJob.value
-  });
+  userInfo.setUserInfo(userData);
 
   popupWithFormEditUser.close();
 }
 
-function handleFormAddCardSubmit(e) {
-  e.preventDefault();
+function handleFormAddCardSubmit(cardData) {
 
-  const data = {
-    title: inputNameCard.value,
-    imageUrl: inputUrlCard.value,
-  };
-
-  cardsContainer.addItem(createCard(data));
+  cardsContainer.addItem(createCard(cardData));
 
   popupWithFormAddCard.close();
 }
@@ -110,11 +89,18 @@ formEditUserValidator.enableValidation();
 
 
 btnEditUser.addEventListener('click', function() {
+  const getUserInfo = userInfo.getUserInfo();
+
+  /* inputUserName.value = getUserInfo.userName;
+  inputUserJob.value = getUserInfo.userJob; */
+
+  ({ userName: inputUserName.value, userJob: inputUserJob.value } = getUserInfo);
+
+  formEditUserValidator.resetValidation();
   popupWithFormEditUser.open();
 });
 
 btnAddCard.addEventListener('click', function() {
-  formAddCard.reset();
   formAddCardValidator.resetValidation();
 
   popupWithFormAddCard.open();
