@@ -1,14 +1,22 @@
-import { initialCards, templateSelector, validationConfig } from "../utils/constants.js";
 import Card from "../components/Card.js";
 import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
-
-/* Редактируемые имя и профессия профиля */
-const userName = document.querySelector('.profile__title');
-const userJob = document.querySelector('.profile__subtitle');
+import {
+  initialCards,
+  validationConfig,
+  templateSelector,
+  userName,
+  userJob,
+  btnEditUser,
+  btnAddCard,
+  formEditUser,
+  inputUserName,
+  inputUserJob,
+  formAddCard,
+} from "../utils/constants.js";
 
 // User Info
 const userInfo = new UserInfo({
@@ -17,27 +25,14 @@ const userInfo = new UserInfo({
 });
 
 // Модалки
-const popupWithFormEditUser = new PopupWithForm('.popup_type_edit-form', handleFormEditUserSubmit);
+const popupWithFormEditUser = new PopupWithForm(handleFormEditUserSubmit, '.popup_type_edit-form');
 popupWithFormEditUser.setEventListeners();
 
-const popupWithFormAddCard = new PopupWithForm('.popup_type_add-form', handleFormAddCardSubmit);
+const popupWithFormAddCard = new PopupWithForm(handleFormAddCardSubmit, '.popup_type_add-form');
 popupWithFormAddCard.setEventListeners();
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
-
-// Кнопки открытия форм
-const btnEditUser = document.querySelector('.profile__btn-edit');
-const btnAddCard = document.querySelector('.profile__btn-add');
-
-
-/* Получение формы редактирования профиля */
-const formEditUser = document.querySelector('.form_type_edit');
-const inputUserName = formEditUser.elements.userName;
-const inputUserJob = formEditUser.elements.userJob;
-
-/* Получение формы добавления карточки */
-const formAddCard = document.querySelector('.form_type_add');
 
 const cardsContainer = new Section({
   items: initialCards,
@@ -53,16 +48,13 @@ const formAddCardValidator = new FormValidator(validationConfig, formAddCard);
 const formEditUserValidator = new FormValidator(validationConfig, formEditUser);
 
 /* Submit handlers */
-
 function handleFormEditUserSubmit(userData) { //правильно ли реализовал... вопрос... это, получается, не сабмитХэндлер
-
   userInfo.setUserInfo(userData);
 
   popupWithFormEditUser.close();
 }
 
 function handleFormAddCardSubmit(cardData) {
-
   cardsContainer.addItem(createCard(cardData));
 
   popupWithFormAddCard.close();
@@ -86,8 +78,7 @@ cardsContainer.renderItems();
 formAddCardValidator.enableValidation();
 formEditUserValidator.enableValidation();
 
-
-
+// Click listeners to open forms
 btnEditUser.addEventListener('click', function() {
   const getUserInfo = userInfo.getUserInfo();
 
