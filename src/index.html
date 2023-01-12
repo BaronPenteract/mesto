@@ -4,18 +4,17 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="pages/index.css">
-  <link rel="shortcut icon" href="images/icons/favicon.png">
+  <link rel="shortcut icon" href="<%=require('./images/icons/favicon.png')%>">
   <title>Mesto</title>
 </head>
 <body class="page">
   <header class="header">
-    <img class="header__logo" src="images/header__logo.svg" alt="Логотип Mesto Russia">
+    <img class="header__logo" src="<%=require('./images/header__logo.svg')%>" alt="Логотип Mesto Russia">
   </header>
   <main class="content">
     <section class="profile">
       <div class="profile__container">
-        <img class="profile__avatar" src="images/avatar.jpg" alt="Аватарка путешественника">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка путешественника">
         <div class="profile__info">
           <h1 class="profile__title">Жак-Ив Кусто</h1>
           <button class="profile__btn-edit" type="button" title="Редактировать"></button>
@@ -91,6 +90,5 @@
       <h2 class="popup__title">тестовое название</h2>
     </div>
   </div><!-- /.popup image -->
-  <script type="module" src="pages/index.js"></script>
 </body>
 </html>
