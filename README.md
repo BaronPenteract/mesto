@@ -7,7 +7,7 @@
 
 **Интро**
 
-![mesto russia](images/icons/favicon.png)
+![mesto russia](src/images/icons/favicon.png)
 ---
 ## Описание
 Одностраничный сайт (landing).
