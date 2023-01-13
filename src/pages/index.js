@@ -8,31 +8,40 @@ import UserInfo from "../components/UserInfo.js";
 import {
   initialCards,
   validationConfig,
+  ESC_KEY,
   templateSelector,
-  userName,
-  userJob,
+  userNameSelector,
+  userJobSelector,
   btnEditUser,
   btnAddCard,
   formEditUser,
-  inputUserName,
-  inputUserJob,
   formAddCard,
 } from "../utils/constants.js";
 
 // User Info
 const userInfo = new UserInfo({
-  userName: userName.textContent,
-  userJob: userJob.textContent
+  userNameSelector,
+  userJobSelector
 });
 
 // Модалки
-const popupWithFormEditUser = new PopupWithForm(handleFormEditUserSubmit, '.popup_type_edit-form');
+const popupWithFormEditUser = new PopupWithForm({
+  ESC_KEY,
+  submitCallback: handleFormEditUserSubmit
+}, '.popup_type_edit-form');
+
 popupWithFormEditUser.setEventListeners();
 
-const popupWithFormAddCard = new PopupWithForm(handleFormAddCardSubmit, '.popup_type_add-form');
+const popupWithFormAddCard = new PopupWithForm({
+  ESC_KEY,
+  submitCallback: handleFormAddCardSubmit
+}, '.popup_type_add-form');
+
 popupWithFormAddCard.setEventListeners();
 
-const popupWithImage = new PopupWithImage('.popup_type_image');
+const popupWithImage = new PopupWithImage({
+  ESC_KEY
+}, '.popup_type_image');
 popupWithImage.setEventListeners();
 
 const cardsContainer = new Section({
@@ -49,7 +58,7 @@ const formAddCardValidator = new FormValidator(validationConfig, formAddCard);
 const formEditUserValidator = new FormValidator(validationConfig, formEditUser);
 
 /* Submit handlers */
-function handleFormEditUserSubmit(userData) { //правильно ли реализовал... вопрос... это, получается, не сабмитХэндлер
+function handleFormEditUserSubmit(userData) {
   userInfo.setUserInfo(userData);
 
   popupWithFormEditUser.close();
@@ -83,10 +92,7 @@ formEditUserValidator.enableValidation();
 btnEditUser.addEventListener('click', function() {
   const getUserInfo = userInfo.getUserInfo();
 
-  /* inputUserName.value = getUserInfo.userName;
-  inputUserJob.value = getUserInfo.userJob; */
-
-  ({ userName: inputUserName.value, userJob: inputUserJob.value } = getUserInfo);
+  popupWithFormEditUser.setInputValues(getUserInfo);
 
   formEditUserValidator.resetValidation();
   popupWithFormEditUser.open();

@@ -7,7 +7,7 @@ export default class Card {
   }
 
   _getTemplate() {
-    return document.querySelector(this._templateSelector).content.cloneNode(true);
+    return document.querySelector(this._templateSelector).content.querySelector('li').cloneNode(true);
   }
 
   _setEventListeners() {
@@ -17,21 +17,28 @@ export default class Card {
   }
 
   _setLikeEventListener() {
-    const btnLike = this._cardElement.querySelector('.cards__like');
+    this._btnLike = this._cardElement.querySelector('.cards__like');
 
-    btnLike.addEventListener('click', () => {
-      btnLike.classList.toggle('cards__like_active');
+    this._btnLike.addEventListener('click', () => {
+      this._toggleLike();
     })
   }
 
-  _setDeleteEventListener() {
-    const btnDelete = this._cardElement.querySelector('.cards__delete');
-    const liElement = this._cardElement.querySelector('li');
+  _toggleLike() {
+    this._btnLike.classList.toggle('cards__like_active');
+  }
 
-    btnDelete.addEventListener('click', () => {
-      liElement.remove();
-      this._cardElement = null;
+  _setDeleteEventListener() {
+    this._btnDelete = this._cardElement.querySelector('.cards__delete');
+
+    this._btnDelete.addEventListener('click', () => {
+      this._deleteCard();
     })
+  }
+
+  _deleteCard() {
+    this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _setImageEventListener() {

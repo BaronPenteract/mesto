@@ -1,23 +1,20 @@
 const ESC_KEY = 'Escape';
 
-
-/* Редактируемые имя и профессия профиля */
-const userName = document.querySelector('.profile__title');
-const userJob = document.querySelector('.profile__subtitle');
-
 // Кнопки открытия форм
 const btnEditUser = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
 
 /* Получение формы редактирования профиля */
 const formEditUser = document.forms.formEdit;
-const inputUserName = formEditUser.elements.userName;
-const inputUserJob = formEditUser.elements.userJob;
 
 /* Получение формы добавления карточки */
 const formAddCard = document.forms.formAdd;
 // Card selector
 const templateSelector = '#card-template';
+
+// User selectors
+const userNameSelector = '.profile__title';
+const userJobSelector = '.profile__subtitle';
 
 const initialCards = [
   {
@@ -59,13 +56,11 @@ export {
   ESC_KEY,
   initialCards,
   templateSelector,
+  userNameSelector,
+  userJobSelector,
   validationConfig,
-  userName,
-  userJob,
   btnEditUser,
   btnAddCard,
   formEditUser,
-  inputUserName,
-  inputUserJob,
   formAddCard,
  };
