@@ -1,8 +1,9 @@
 export default class Card {
   constructor({data, handleImageClick}, templateSelector) {
     this._templateSelector = templateSelector;
-    this._title = data.title;
-    this._imageUrl = data.imageUrl;
+    this._title = data.name;
+    this._imageUrl = data.link;
+    this._likes = data.likes.length;
     this._handleImageClick = handleImageClick;
   }
 
@@ -44,8 +45,8 @@ export default class Card {
   _setImageEventListener() {
     this._cardImage.addEventListener('click', () => {
       const data = {
-        title: this._title,
-        imageUrl: this._imageUrl
+        name: this._title,
+        link: this._imageUrl
       };
       this._handleImageClick(data)
     })
@@ -55,10 +56,12 @@ export default class Card {
     this._cardElement = this._getTemplate();
     this._cardTitle = this._cardElement.querySelector('.cards__title');
     this._cardImage = this._cardElement.querySelector('.cards__image');
+    this._likesAmount = this._cardElement.querySelector('.cards__like-amount');
 
     this._cardTitle.textContent = this._title;
     this._cardImage.src = this._imageUrl;
     this._cardImage.alt = this._title;
+    this._likesAmount.textContent = this._likes;
 
     this._setEventListeners();
 

@@ -3,9 +3,11 @@ const ESC_KEY = 'Escape';
 // Кнопки открытия форм
 const btnEditUser = document.querySelector('.profile__btn-edit');
 const btnAddCard = document.querySelector('.profile__btn-add');
+const btnEditAvatar = document.querySelector('.profile__btn-avatar-edit');
 
 /* Получение формы редактирования профиля */
 const formEditUser = document.forms.formEdit;
+const formEditAvatar = document.forms.formAvatar;
 
 /* Получение формы добавления карточки */
 const formAddCard = document.forms.formAdd;
@@ -60,7 +62,9 @@ export {
   userJobSelector,
   validationConfig,
   btnEditUser,
+  btnEditAvatar,
   btnAddCard,
   formEditUser,
   formAddCard,
+  formEditAvatar,
  };
