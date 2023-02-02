@@ -4,6 +4,7 @@ import FormValidator from "../components/FormValidator.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import PopupWithConfifmation from '../components/PopupWithConfirmation.js';
 import UserInfo from "../components/UserInfo.js";
 import Api from '../components/Api.js';
 import {
@@ -31,68 +32,67 @@ const api = new Api({
   }
 });
 
-api.getInitialCards()
-  .then( cards => {
-    // Добавление карточек по умолчанию
-    cardsContainer.renderItems(cards)
-  })
-  .catch( err => {
-    console.log(err)
-  })
-
-
 // User Info
 const userInfo = new UserInfo({
   userNameSelector,
   userJobSelector
 });
 
-api.getUser()
-  .then(res => {
-    userInfo.setUserInfo(res)
+let myUserId;
+
+Promise.all([api.getInitialCards(), api.getUser()])
+  .then(([cards, user]) => {
+    myUserId = user._id;
+    userInfo.setUserInfo(user);
+    cardsContainer.renderItems(cards);
   })
   .catch( err => {
     console.log(err)
   })
 
 // Модалки
-const popupWithFormEditUser = new PopupWithForm({// Profile info
+const popupWithFormEditUser = new PopupWithForm({// ------------------------------------------------Profile info
   ESC_KEY,
   submitCallback: handleFormEditUserSubmit
 }, '.popup_type_edit-form');
 
 popupWithFormEditUser.setEventListeners();
 
-const popupWithFormAddCard = new PopupWithForm({// Card
+const popupWithFormAddCard = new PopupWithForm({// -------------------------------------------------Card
   ESC_KEY,
   submitCallback: handleFormAddCardSubmit
 }, '.popup_type_add-form');
 
 popupWithFormAddCard.setEventListeners();
 
-const popupWithFormEditAvatar = new PopupWithForm({// Avatar
+const popupWithFormEditAvatar = new PopupWithForm({// ----------------------------------------------Avatar
   ESC_KEY,
   submitCallback: {}
 }, '.popup_type_avatar-form');
 popupWithFormEditAvatar.setEventListeners();
 
-const popupWithImage = new PopupWithImage({// Image
+const popupWithImage = new PopupWithImage({// ------------------------------------------------------Image
   ESC_KEY
 }, '.popup_type_image');
 popupWithImage.setEventListeners();
 
-const cardsContainer = new Section({// Section
+const popupWithFormConfirm = new PopupWithConfifmation({ // ----------------------------------------Confim
+  ESC_KEY,
+}, '.popup_type_confirm');
+popupWithFormConfirm.setEventListeners();
+
+const cardsContainer = new Section({//--------------------------------------------------------------Section
   renderer: (item) => {
-    cardsContainer.addItem(createCard(item));
+    cardsContainer.addItemAppend(createCard(item));
   }
 }, '.cards__list'); /* <ul class="cards__list"></ul> */
 
 
 
 /* Validators */
-const formAddCardValidator = new FormValidator(validationConfig, formAddCard);// Card
-const formEditUserValidator = new FormValidator(validationConfig, formEditUser);//Profile info
-const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvatar);// Avatar
+const formAddCardValidator = new FormValidator(validationConfig, formAddCard);// Card           \
+const formEditUserValidator = new FormValidator(validationConfig, formEditUser);//Profile info    -- Validators
+const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvatar);// Avatar   /
 
 /* Submit handlers */
 function handleFormEditUserSubmit(userData) {
@@ -111,35 +111,11 @@ function handleFormEditUserSubmit(userData) {
   popupWithFormEditUser.close();
 }
 
-function handleFormAddCardSubmit(data) {
+function handleFormAddCardSubmit(cardData) {
 
-  function dateToString(date) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, 0);
-    const day = date.getDate().toString().padStart(2, 0);
-    const hours = date.getHours().toString().padStart(2, 0);
-    const minutes = date.getMinutes().toString().padStart(2, 0);
-    const seconds = date.getSeconds().toString().padStart(2, 0);
-    const milliseconds = date.getMilliseconds().toString().padStart(3, 0);
-
-    return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}Z`
-  }
-
-  const user = userInfo.getUserInfo();
-  const cardData = Object.assign(data, {
-      "likes": [],
-      "_id": "5d1f0611d321eb4bdcd707dd",
-      "owner": user,
-      "createdAt": dateToString(new Date())
-    },
-  )
   api.addCard(cardData)
     .then(res => {
-      if(res.ok) {
-        cardsContainer.addItem(createCard(cardData));
-        return;
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
+      cardsContainer.addItemPrepend(createCard(res));
     })
     .catch(err => {
       console.log(err)
@@ -148,14 +124,30 @@ function handleFormAddCardSubmit(data) {
   popupWithFormAddCard.close();
 }
 
-function createCard(data) {
+function createCard(data) { // ----------------------------------------------------------------Create card
   return new Card(
     {
       data,
-      handleImageClick: popupWithImage.open.bind(popupWithImage)
+      userId: myUserId,
+      handleImageClick: popupWithImage.open.bind(popupWithImage),
+      handleDeleteClick: handleDeleteClick
     },
     templateSelector
   ).generate();
+}
+
+function handleDeleteClick(cardId, cardElement) {
+  popupWithFormConfirm.open();
+  popupWithFormConfirm.setSubmitCallback(() => {
+    api.deleteCard(cardId)
+      .then(res => {
+       if( res.ok ) {
+        cardElement.remove();
+       }
+      });
+
+    popupWithFormConfirm.close();
+  })
 }
 
 /* ----------------------------------------------------------------------------------------------------- */

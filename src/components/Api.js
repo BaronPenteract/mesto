@@ -35,6 +35,20 @@ export default class Api {
         link
       })
     })
+    .then( res => res.json())
+    .catch( err => {
+      console.log(err)
+    })
+  }
+
+  deleteCard(cardId) {
+    console.log(`Card ${cardId} deleted`);
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+      },
+    })
     .catch( err => {
       console.log(err)
     })

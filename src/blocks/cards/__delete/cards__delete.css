@@ -12,6 +12,7 @@
   right: 20px;
   z-index: 1;
   cursor: pointer;
+  visibility: hidden;
   transition: opacity .2s linear;
 }
 
