@@ -11,16 +11,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then( res => {
-        if (res.ok) {
-          return res.json();
-        }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
-      })
-      .catch( err => {
-        console.log(err)
-      })
+      .then( this._checkResult, this._ifError )
   }
 
   addCard({name, link}) {
@@ -35,45 +26,50 @@ export default class Api {
         link
       })
     })
-    .then( res => res.json())
-    .catch( err => {
-      console.log(err)
-    })
+    .then( this._checkResult, this._ifError )
   }
 
   deleteCard(cardId) {
-    console.log(`Card ${cardId} deleted`);
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: 'DELETE',
       headers: {
         authorization: this._token,
       },
     })
-    .catch( err => {
-      console.log(err)
+    .catch(this._ifError)
+  }
+
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._token,
+      },
     })
+    .then( this._checkResult, this._ifError )
+  }
+
+  unLikeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._token,
+      },
+    })
+    .then( this._checkResult, this._ifError )
   }
 
   getUser() {
     return fetch(`${this._baseUrl}/users/me `, {
-      headers: {
-        authorization: this._token
-      }
-    })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
+        headers: {
+          authorization: this._token
         }
-
-        return Promise.reject(`Ошибка: ${res.status}`);
       })
-      .catch( err => {
-        console.log(err)
-      })
+      .then( this._checkResult, this._ifError )
   }
 
   setUser({name, about}) {
-    return fetch(`${this._baseUrl}/users/me `,{
+    return fetch(`${this._baseUrl}/users/me`,{
       method: 'PATCH',
       headers: {
         authorization: this._token,
@@ -84,9 +80,31 @@ export default class Api {
         about
       })
     })
-    .catch( err => {
-      console.log(err)
+    .catch( this._ifError )
+  }
+
+  setAvatar(avatarData) {
+    return fetch(`${this._baseUrl}/users/me/avatar`, {
+      method: 'PATCH',
+      headers: {
+        authorization: this._token,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(avatarData)
     })
+    .then( this._checkResult, this._ifError )
+  }
+
+  _ifError( err ) {
+    console.log(err)
+  }
+
+  _checkResult(result) {
+    if (result.ok) {
+      return result.json();
+    }
+
+    return Promise.reject(`Ошибка: ${result.status}`);
   }
 
 }

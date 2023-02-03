@@ -14,6 +14,7 @@ import {
   templateSelector,
   userNameSelector,
   userJobSelector,
+  userAvatarSelector,
   btnEditUser,
   btnEditAvatar,
   btnAddCard,
@@ -35,7 +36,8 @@ const api = new Api({
 // User Info
 const userInfo = new UserInfo({
   userNameSelector,
-  userJobSelector
+  userJobSelector,
+  userAvatarSelector,
 });
 
 let myUserId;
@@ -44,6 +46,7 @@ Promise.all([api.getInitialCards(), api.getUser()])
   .then(([cards, user]) => {
     myUserId = user._id;
     userInfo.setUserInfo(user);
+    userInfo.setAvatar(user);
     cardsContainer.renderItems(cards);
   })
   .catch( err => {
@@ -67,7 +70,7 @@ popupWithFormAddCard.setEventListeners();
 
 const popupWithFormEditAvatar = new PopupWithForm({// ----------------------------------------------Avatar
   ESC_KEY,
-  submitCallback: {}
+  submitCallback: handleFormAvatarSubmit
 }, '.popup_type_avatar-form');
 popupWithFormEditAvatar.setEventListeners();
 
@@ -91,37 +94,59 @@ const cardsContainer = new Section({//------------------------------------------
 
 /* Validators */
 const formAddCardValidator = new FormValidator(validationConfig, formAddCard);// Card           \
-const formEditUserValidator = new FormValidator(validationConfig, formEditUser);//Profile info    -- Validators
+const formEditUserValidator = new FormValidator(validationConfig, formEditUser);//Profile info   |--- Validators
 const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvatar);// Avatar   /
 
 /* Submit handlers */
 function handleFormEditUserSubmit(userData) {
-  api.setUser(userData)
-    .then( res => {
-      if(res.ok) {
+
+  const currentUserData = userInfo.getUserInfo();
+  let isDifferentValues;
+
+  for( let currentKey in currentUserData ) {
+    if(currentUserData[currentKey] !== userData[currentKey]) {
+      isDifferentValues = true;
+    }
+  }
+
+  if(isDifferentValues) {
+    popupWithFormEditUser.isLoading(true);
+    api.setUser(userData)
+      .then( res => {
         userInfo.setUserInfo(userData);
-        return;
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch(err => {
-      console.log(err)
-    })
+      })
+      .finally( () => {
+        popupWithFormEditUser.isLoading(false);
+      })
+  }
 
   popupWithFormEditUser.close();
 }
 
 function handleFormAddCardSubmit(cardData) {
-
+  popupWithFormAddCard.isLoading(true);
   api.addCard(cardData)
     .then(res => {
       cardsContainer.addItemPrepend(createCard(res));
     })
-    .catch(err => {
-      console.log(err)
+    .finally( () => {
+      popupWithFormAddCard.isLoading(false);
     })
 
   popupWithFormAddCard.close();
+}
+
+function handleFormAvatarSubmit(avatarData) {
+  popupWithFormEditAvatar.isLoading(true);
+  api.setAvatar(avatarData)
+    .then( res => {
+      userInfo.setAvatar(res)
+    })
+    .finally( () => {
+      popupWithFormEditAvatar.isLoading(false);
+    })
+
+  popupWithFormEditAvatar.close();
 }
 
 function createCard(data) { // ----------------------------------------------------------------Create card
@@ -130,25 +155,41 @@ function createCard(data) { // -------------------------------------------------
       data,
       userId: myUserId,
       handleImageClick: popupWithImage.open.bind(popupWithImage),
-      handleDeleteClick: handleDeleteClick
+      handleDeleteClick: handleDeleteClick,
+      handleLikeClick: handleLikeClick,
     },
     templateSelector
   ).generate();
 }
 
-function handleDeleteClick(cardId, cardElement) {
+function handleDeleteClick() {
   popupWithFormConfirm.open();
   popupWithFormConfirm.setSubmitCallback(() => {
-    api.deleteCard(cardId)
+    api.deleteCard(this.getId())
       .then(res => {
        if( res.ok ) {
-        cardElement.remove();
+        this._cardElement.remove();
        }
       });
 
     popupWithFormConfirm.close();
   })
 }
+
+function handleLikeClick() {
+  if (this.checkUserLike(this._likes)) {
+    api.unLikeCard(this.getId())
+    .then( res => {
+      this.setLikes(res.likes);
+    })
+  } else {
+    api.likeCard(this.getId())
+    .then( res => {
+      this.setLikes(res.likes);
+    })
+  }
+}
+
 
 /* ----------------------------------------------------------------------------------------------------- */
 

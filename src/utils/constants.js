@@ -17,6 +17,7 @@ const templateSelector = '#card-template';
 // User selectors
 const userNameSelector = '.profile__title';
 const userJobSelector = '.profile__subtitle';
+const userAvatarSelector = '.profile__avatar';
 
 const initialCards = [
   {
@@ -60,6 +61,7 @@ export {
   templateSelector,
   userNameSelector,
   userJobSelector,
+  userAvatarSelector,
   validationConfig,
   btnEditUser,
   btnEditAvatar,

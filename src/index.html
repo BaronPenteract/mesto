@@ -15,13 +15,13 @@
     <section class="profile">
       <div class="profile__container">
         <div class="profile__avatar-container">
-          <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватарка путешественника">
+          <img class="profile__avatar" src="<%=require('./images/avatar.png')%>" alt="Аватарка путешественника">
           <button class="profile__btn-avatar-edit anim-avatar-button" type="button" title="Изменить аватар"></button>
         </div>
         <div class="profile__info">
-          <h1 class="profile__title">Жак-Ив Кусто</h1>
+          <h1 class="profile__title">&nbsp;&nbsp;</h1>
           <button class="profile__btn-edit" type="button" title="Редактировать"></button>
-          <p class="profile__subtitle">Исследователь океана</p>
+          <p class="profile__subtitle">&nbsp;&nbsp;</p>
         </div>
       </div>
       <button class="profile__btn-add" type="button" title="Добавить новое место"></button>
@@ -49,7 +49,7 @@
     </section>
   </main>
   <footer class="footer">
-    <p class="footer__text">&copy; 2022 Mesto Russia</p>
+    <p class="footer__text">&copy; 2023 Mesto Russia</p>
   </footer>
   <div class="popup popup_type_edit-form">
     <div class="popup__container">
@@ -103,7 +103,7 @@
         <h2 class="form__title">Обновить аватар</h2>
         <fieldset class="form__input-container">
           <label class="form__label">
-            <input id="avatar-url-input" class="form__input form__input_avatar_url" type="url" name="imageUrl" placeholder="Ссылка на аватар" required>
+            <input id="avatar-url-input" class="form__input form__input_avatar_url" type="url" name="avatar" placeholder="Ссылка на аватар" required>
             <span class="avatar-url-input-error form__error"></span>
           </label>
         </fieldset>
@@ -114,7 +114,7 @@
   <div class="popup popup_type_confirm">
     <div class="popup__container">
       <button class="popup__close" type="button" title="Закрыть"></button>
-      <form class="popup__form form form_type_confirm" name="formAvatar" action="/" novalidate>
+      <form class="popup__form form form_type_confirm" name="formConfirm" action="/" novalidate>
         <h2 class="form__title">Вы уверены?</h2>
         <button class="form__btn form__btn_type_submit" type="submit">Да</button>
       </form>
