@@ -38,8 +38,8 @@
 .popup__image{display:block;height:100%;margin-bottom:10px;max-height:75vh;max-width:75vw;-o-object-fit:contain;object-fit:contain;-o-object-position:center;object-position:center;width:100%}
 .popup__title{color:#fff;font-size:12px;font-weight:400;line-height:1.25;margin:0}
 .form{background-color:#fff;border-radius:10px;box-sizing:border-box;padding:34px 36px 37px;width:430px}@media screen and (max-width:545px){.form{width:380px}}@media screen and (max-width:425px){.form{padding:26px 22px 25px;width:280px}}
-.form__title{color:#000;font-size:24px;font-weight:900;line-height:1.21;margin:0 0 47px}@media screen and (max-width:425px){.form__title{font-size:18px;margin-bottom:73px}}
-.form__input-container{border:none;display:flex;flex-direction:column;gap:0;margin:0 0 17px;padding:0}@media screen and (max-width:425px){.form__input-container{margin-bottom:20px}}
+.form__title{color:#000;font-size:24px;font-weight:900;line-height:1.21;margin:0 0 30px}@media screen and (max-width:425px){.form__title{font-size:18px;margin-bottom:73px}}
+.form__input-container{border:none;display:flex;flex-direction:column;gap:0;margin:0 0 17px;padding:17px 0 0}@media screen and (max-width:425px){.form__input-container{margin-bottom:20px}}
 .form__input{border:none;border-bottom:1px solid rgba(0,0,0,.2);box-sizing:border-box;color:#000;font-size:14px;font-weight:400;line-height:1.21;margin-bottom:5px;padding:0 0 9px;transition:border .2s linear;width:100%}.form__input:focus{border-bottom-color:rgba(0,0,0,.8);outline:none}.form__input::-moz-placeholder{color:#c4c4c4;font-size:14px;font-weight:400;line-height:1.21}.form__input::placeholder{color:#c4c4c4;font-size:14px;font-weight:400;line-height:1.21}
 .form__input_type_error,.form__input_type_error:focus{border-bottom-color:red}
 .form__error{color:red;display:block;font-size:12px;font-weight:400;line-height:1;min-height:24px;visibility:hidden}
