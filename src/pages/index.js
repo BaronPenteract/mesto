@@ -23,8 +23,6 @@ import {
   formEditAvatar,
 } from "../utils/constants.js";
 
-
-
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-59',
   headers: {
@@ -58,14 +56,12 @@ const popupWithFormEditUser = new PopupWithForm({// ----------------------------
   ESC_KEY,
   submitCallback: handleFormEditUserSubmit
 }, '.popup_type_edit-form');
-
 popupWithFormEditUser.setEventListeners();
 
 const popupWithFormAddCard = new PopupWithForm({// -------------------------------------------------Card
   ESC_KEY,
   submitCallback: handleFormAddCardSubmit
 }, '.popup_type_add-form');
-
 popupWithFormAddCard.setEventListeners();
 
 const popupWithFormEditAvatar = new PopupWithForm({// ----------------------------------------------Avatar
@@ -90,8 +86,6 @@ const cardsContainer = new Section({//------------------------------------------
   }
 }, '.cards__list'); /* <ul class="cards__list"></ul> */
 
-
-
 /* Validators */
 const formAddCardValidator = new FormValidator(validationConfig, formAddCard);// Card           \
 const formEditUserValidator = new FormValidator(validationConfig, formEditUser);//Profile info   |--- Validators
@@ -99,7 +93,6 @@ const formEditAvatarValidator = new FormValidator(validationConfig, formEditAvat
 
 /* Submit handlers */
 function handleFormEditUserSubmit(userData) {
-
   const currentUserData = userInfo.getUserInfo();
   let isDifferentValues;
 
@@ -112,15 +105,17 @@ function handleFormEditUserSubmit(userData) {
   if(isDifferentValues) {
     popupWithFormEditUser.isLoading(true);
     api.setUser(userData)
-      .then( res => {
+      .then( () => {
         userInfo.setUserInfo(userData);
+        popupWithFormEditUser.close();
       })
+      .catch( api.handleError )
       .finally( () => {
         popupWithFormEditUser.isLoading(false);
       })
+  } else {
+    popupWithFormEditUser.close();
   }
-
-  popupWithFormEditUser.close();
 }
 
 function handleFormAddCardSubmit(cardData) {
@@ -128,25 +123,26 @@ function handleFormAddCardSubmit(cardData) {
   api.addCard(cardData)
     .then(res => {
       cardsContainer.addItemPrepend(createCard(res));
+      popupWithFormAddCard.close();
     })
+    .catch( api.handleError )
     .finally( () => {
       popupWithFormAddCard.isLoading(false);
     })
-
-  popupWithFormAddCard.close();
 }
 
 function handleFormAvatarSubmit(avatarData) {
   popupWithFormEditAvatar.isLoading(true);
+
   api.setAvatar(avatarData)
     .then( res => {
-      userInfo.setAvatar(res)
+      userInfo.setAvatar(res);
+      popupWithFormEditAvatar.close();
     })
+    .catch( api.handleError )
     .finally( () => {
       popupWithFormEditAvatar.isLoading(false);
     })
-
-  popupWithFormEditAvatar.close();
 }
 
 function createCard(data) { // ----------------------------------------------------------------Create card
@@ -165,35 +161,38 @@ function createCard(data) { // -------------------------------------------------
 function handleDeleteClick() {
   popupWithFormConfirm.open();
   popupWithFormConfirm.setSubmitCallback(() => {
+    PopupWithForm.prototype.isLoading.call(popupWithFormConfirm, true, 'Удаление...'); // так можно делать? вот в чем вопрос. Выглядит лучше
     api.deleteCard(this.getId())
       .then(res => {
        if( res.ok ) {
         this._cardElement.remove();
+        popupWithFormConfirm.close();
        }
+      })
+      .catch( api.handleError )
+      .finally( () => {
+        PopupWithForm.prototype.isLoading.call(popupWithFormConfirm, false);
       });
-
-    popupWithFormConfirm.close();
   })
 }
 
 function handleLikeClick() {
   if (this.checkUserLike(this._likes)) {
     api.unLikeCard(this.getId())
-    .then( res => {
-      this.setLikes(res.likes);
-    })
+      .then( res => {
+        this.setLikes(res.likes);
+      })
+      .catch( api.handleError )
   } else {
     api.likeCard(this.getId())
-    .then( res => {
-      this.setLikes(res.likes);
-    })
+      .then( res => {
+        this.setLikes(res.likes);
+      })
+      .catch( api.handleError )
   }
 }
 
-
 /* ----------------------------------------------------------------------------------------------------- */
-
-
 // Включение валидации
 formAddCardValidator.enableValidation();
 formEditUserValidator.enableValidation();

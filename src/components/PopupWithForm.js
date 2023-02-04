@@ -39,13 +39,19 @@ export default class PopupWithForm extends Popup {
     super.close();
   }
 
-  isLoading(isLoading) {
-    const submitText = this._buttonSubmit.textContent;
+  isLoading(isLoading, newSubmitButtonText = 'Сохранение...') {
+
+    if( !this._buttonSubmit) {
+      this._buttonSubmit = this._form.querySelector('.form__btn_type_submit');
+    } // для вызова этой функции из объекта модалки формы подтверждения, т.к. там искать кнопку нет смысла
+
+    this._buttonSubmit.disabled = isLoading;
 
     if(isLoading) {
-      this._buttonSubmit.textContent = 'Сохранение...';
+      this._submitText = this._buttonSubmit.textContent;
+      this._buttonSubmit.textContent = newSubmitButtonText;
     } else {
-      this._buttonSubmit.textContent = submitText;
+      this._buttonSubmit.textContent = this._submitText;
     }
   }
 }

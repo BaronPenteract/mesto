@@ -19,11 +19,18 @@ export default class UserInfo {
   }
 
   setUserInfo({name, about}) {
-    this._userNameElement.textContent = this._userName = name;
-    this._userJobElement.textContent = this._userJob = about;
+    if(name) {
+      this._userNameElement.textContent = this._userName = name;
+    }
+
+    if(about) {
+      this._userJobElement.textContent = this._userJob = about;
+    }
   }
 
   setAvatar(avatarData) {
-    this._userAvatarElement.src = avatarData.avatar;
+    if(avatarData.avatar) {
+      this._userAvatarElement.src = avatarData.avatar;
+    }
   }
 }

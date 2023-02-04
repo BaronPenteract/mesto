@@ -11,7 +11,7 @@ export default class Api {
         authorization: this._token
       }
     })
-      .then( this._checkResult, this._ifError )
+      .then( this._handleResponse )
   }
 
   addCard({name, link}) {
@@ -26,7 +26,7 @@ export default class Api {
         link
       })
     })
-    .then( this._checkResult, this._ifError )
+    .then( this._handleResponse )
   }
 
   deleteCard(cardId) {
@@ -36,7 +36,6 @@ export default class Api {
         authorization: this._token,
       },
     })
-    .catch(this._ifError)
   }
 
   likeCard(cardId) {
@@ -46,7 +45,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-    .then( this._checkResult, this._ifError )
+    .then( this._handleResponse )
   }
 
   unLikeCard(cardId) {
@@ -56,7 +55,7 @@ export default class Api {
         authorization: this._token,
       },
     })
-    .then( this._checkResult, this._ifError )
+    .then( this._handleResponse )
   }
 
   getUser() {
@@ -65,7 +64,7 @@ export default class Api {
           authorization: this._token
         }
       })
-      .then( this._checkResult, this._ifError )
+      .then( this._handleResponse )
   }
 
   setUser({name, about}) {
@@ -80,7 +79,6 @@ export default class Api {
         about
       })
     })
-    .catch( this._ifError )
   }
 
   setAvatar(avatarData) {
@@ -92,14 +90,14 @@ export default class Api {
       },
       body: JSON.stringify(avatarData)
     })
-    .then( this._checkResult, this._ifError )
+    .then( this._handleResponse )
   }
 
-  _ifError( err ) {
+  handleError( err ) {
     console.log(err)
   }
 
-  _checkResult(result) {
+  _handleResponse(result) {
     if (result.ok) {
       return result.json();
     }
